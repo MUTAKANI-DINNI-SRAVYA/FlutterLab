@@ -9,9 +9,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: IconDemo(),
-    );
+    return const MaterialApp(home: IconDemo());
   }
 }
 
@@ -25,47 +23,47 @@ class IconDemo extends StatefulWidget {
 class _IconDemoState extends State<IconDemo> {
   double size = 50;
 
+  // true = enabled, false = disabled
+  bool isEnabled = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Change Icon Size"),
-      ),
+      appBar: AppBar(title: const Text("Icon Size Toggle")),
 
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
 
-            Icon(
-              Icons.star,
-              size: size,
-              color: Colors.yellow,
-            ),
+          children: [
+            Icon(Icons.chat, size: size, color: Colors.blue),
 
             const SizedBox(height: 30),
 
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-
                 ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      size = size + 10;
-                    });
-                  },
+                  onPressed: isEnabled
+                      ? () {
+                          setState(() {
+                            size = size + 10;
+                          });
+                        }
+                      : null,
                   child: const Text("+"),
                 ),
 
                 const SizedBox(width: 10),
 
                 ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      size = size - 10;
-                    });
-                  },
+                  onPressed: isEnabled
+                      ? () {
+                          setState(() {
+                            size = size - 10;
+                          });
+                        }
+                      : null,
                   child: const Text("-"),
                 ),
 
@@ -79,8 +77,18 @@ class _IconDemoState extends State<IconDemo> {
                   },
                   child: const Text("Reset"),
                 ),
-
               ],
+            ),
+
+            const SizedBox(height: 20),
+
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  isEnabled = !isEnabled;
+                });
+              },
+              child: Text(isEnabled ? "Disable" : "Enable"),
             ),
           ],
         ),
